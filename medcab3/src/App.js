@@ -65,6 +65,12 @@ function App() {
   
   return (
     <div className="App">
+      {/* adding a nav bar just for testing */}
+      <header>
+        <Link to='/Login'><button>Login</button></Link>
+        <Link to='/Register'><button>Register</button></Link>
+        <Link to='/'><button>Home</button></Link>
+      </header>
       <Switch>
         <Route path='/Login'>
           <LoginForm
