@@ -46,9 +46,14 @@ export default function RegistrationForm(props) {
                     onChange={onCheckBoxChange}
                     name='ageCheckbox'
                     type='checkbox'
+                    checked='false'
                 />
                 <p>"I verify that I am of legal age to view this content in my region."</p>
             </label>
+            {/* 
+
+                this wasn't discussed in our call. Might be good functionality to add so that the ML team's recommendations can be used in some way. IDK.
+
             <label>
                 <input
                     checked={values.mail_list}
@@ -57,7 +62,8 @@ export default function RegistrationForm(props) {
                     type='checkbox'
                 />
                 <p>"I am interested in receiving reccomendations via email."</p>
-            </label>
+            </label> 
+            */}
             <button onClick={onSubmit}>Register</button>
 
 
