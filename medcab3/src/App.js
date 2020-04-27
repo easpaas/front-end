@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Switch, Route, Link } from 'react-router-dom';
 import Details from './componenets/Details';
+import RegistrationForm from './componenets/RegistrationForm';
+import LoginForm from './componenets/LoginForm'
 
 // API url will go here
 const baseUrl = '<insert_link_here>'
@@ -27,7 +29,11 @@ const defaultDetails = {
 }
 
 function App() {
-  const [details, setDetails] = useState(defaultDetails)
+  /* slice of state that can be used for search bar maybe
+   cant think of a way to make a get request apart from having the DS
+   team host some dummy data, since the point of the age verification 
+   is to not return any details on actual data until age is confirmed.
+   const [details, setDetails] = useState(defaultDetails) */
   const [formValues, setFormValues] = useState(initialFormValues)
 
   const onInputChange = evt => {
@@ -41,6 +47,7 @@ function App() {
   }
 
   const onCheckboxChange = evt => {
+    // calling this name in case we use the mail checkbox
     const {name} = evt.target
     const isChecked = evt.target.checked
     setFormValues({
@@ -49,11 +56,38 @@ function App() {
     })
   }
 
+  const onSubmit = evt => {
+    evt.preventDefault()
+    console.log(evt)
+    setFormValues(initialFormValues)
+  }
+
   
   return (
     <div className="App">
       <Switch>
+        <Route path='/Login'>
+          <LoginForm
+          values={formValues}
+          onInputChange={onInputChange}
+          onSubmit={onSubmit}
+          
+          />
+        </Route>
+        <Route path='/Register'>
+          <RegistrationForm 
+          values={formValues}
+          onInputChange={onInputChange}
+          onCheckboxChange={onCheckboxChange}
+          onSubmit={onSubmit}
+          />
+        </Route>
+        
+        
+        {/* more specific switch paths above */}        
         <Route path='/'>
+          <Link to='/Login'><button>Login</button></Link>
+          <Link to='/Register'><button>Register</button></Link>
           <Details />
         </Route>
       </Switch>

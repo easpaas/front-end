@@ -15,7 +15,7 @@ export default function LoginForm(props) {
             <label>
                 <input
                     value={values.email}
-                    onInputChange={onInputChange}
+                    onChange={onInputChange}
                     name='email'
                     type='text'
                 />
@@ -24,12 +24,12 @@ export default function LoginForm(props) {
             <label>
                 <input
                     value={values.password}
-                    onInputChange={onInputChange}
+                    onChange={onInputChange}
                     name='password'
                     type='text'
                 />
             </label>
-            <button onClick={onSubmit}>Register</button>
+            <button onClick={onSubmit}>Login</button>
 
 
         </form>

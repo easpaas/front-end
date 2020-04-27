@@ -12,43 +12,50 @@ export default function RegistrationForm(props) {
     return (
         <form className='form' id='register-form'>
             <p>Please fill out the form below.</p>
-            <h6>Email:</h6>
-            <label>
+            
+            <label><h6>Email:</h6>
                 <input
                     value={values.email}
-                    onInputChange={onInputChange}
+                    onChange={onInputChange}
                     name='email'
                     type='text'
                 />
             </label>
-            <h6>Name:</h6>
-            <label>
+            
+            <label><h6>Name:</h6>
                 <input
                     value={values.name}
-                    onInputChange={onInputChange}
+                    onChange={onInputChange}
                     name='name'
                     type='text'
                 />
             </label>
-            <h6>Password:</h6>
-            <label>
+            
+            <label><h6>Password:</h6>
                 <input
                     value={values.password}
-                    onInputChange={onInputChange}
+                    onChange={onInputChange}
                     name='password'
                     type='text'
                 />
             </label>
-            <h6>Username:</h6>
-            <label>
+            
+            <label><h6>Username:</h6><input
+                    value={values.username}
+                    onChange={onInputChange}
+                    name='username'
+                    type='text'
+                />
+            </label>
+            
+            <label><p>"I verify that I am of legal age to view this content in my region."</p>
                 <input
                     checked={values.ageVerified}
                     onChange={onCheckBoxChange}
                     name='ageCheckbox'
                     type='checkbox'
-                    checked='false'
-                />
-                <p>"I verify that I am of legal age to view this content in my region."</p>
+                    
+                />                
             </label>
             {/* 
 
