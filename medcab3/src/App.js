@@ -21,6 +21,7 @@ const initialFormValues = {
 
 // for now, Im making a lorum ipsum data object for me to render to the DOM, we can tweak it to look like the data we get from the DS Team, and hopefully get them to set up a table of funny, dummy, strains (My favorite idea so far is gysahl greens)
 const defaultDetails = {
+  imageurl:'#',
   strain_name:'gysahl greens',
   strain_type:'sativa',
   aroma:'Smells strongly of wold onion',
@@ -76,8 +77,7 @@ function App() {
           <LoginForm
           values={formValues}
           onInputChange={onInputChange}
-          onSubmit={onSubmit}
-          
+          onSubmit={onSubmit}          
           />
         </Route>
         <Route path='/Register'>
@@ -92,9 +92,12 @@ function App() {
         
         {/* more specific switch paths above */}        
         <Route path='/'>
-          <Link to='/Login'><button>Login</button></Link>
-          <Link to='/Register'><button>Register</button></Link>
-          <Details />
+          <Details 
+          image={defaultDetails.imageurl}
+          description={defaultDetails.description}
+          strain_name={defaultDetails.strain_name}
+          strain_type={defaultDetails.strain_type}          
+          />
         </Route>
       </Switch>
       

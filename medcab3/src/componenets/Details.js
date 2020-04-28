@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function Details(props) {
     const {
-        image,
+        imageurl,
         description,
         strain_name,
         strain_type,
@@ -18,12 +18,11 @@ on this page will be URL generated.*/}
 
     return (
     <div className={'details container'}>
-        <img />
-        <p>Details: Indica is like ‘in da couch’ like straight couch lock chasing waterfalls and milkers straight to your dome. Make a quick pipe out of an apple and release the carb Purple Haze all around. Pass the duchie Bob Marley this shatter is hella potent. OG grandaddy purps with notes of diesel. Rasta!
+        <img src={imageurl}/>
+    <h3>{strain_name} : {strain_type}</h3>
 
-Optimizing dime bags of pre-rolled honey oil dabs. California kush roll it up into a fat blunt for medicinal purposes to elevate your consciousness. Taco Bell 4th meal with Doritos Locos tacos and a knife rip on the side. Guatemalan purple haze grown outdoors by ganja shaman. Legalize spliffs for recreational Snoop Dogg edibles pusher cannabidiol cartoons.
+        <p>Details: {description}</p>
 
-</p>
     </div>
     )
 }
