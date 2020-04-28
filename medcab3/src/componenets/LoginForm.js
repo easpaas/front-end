@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const loginFormDiv = styled.div`
+export const LoginFormDiv = styled.div`
     background-color: #EDFFEA
     
 `
