@@ -1,37 +1,33 @@
-import React from "react";
+import React, {useState} from "react";
 import { axiosWithAuth } from "../utils/axiosAuth";
-import styled from "styled-components";
+// import styled from "styled-components";
 
-export const LoginFormDiv = styled.div`
-  background-color: #edffea;
-`;
+// export const LoginFormDiv = styled.div`
+//   background-color: #edffea;
+// `;
 
 export default function LoginForm() {
 	const [credentials, setCredentials] = useState({
-		username: "",
+		email: "",
 		password: ""
 	});
 
-  handleChange = e => {
+  const handleChange = e => {
 		setCredentials({
 			...credentials, 
 			[e.target.name]: e.target.value
 		})
-    // this.setState({
-    //   credentials: {
-    //     ...this.state.credentials,
-    //     [e.target.name]: e.target.value
-    //   }
-    // });
   };
 
-  login = e => {
+  const handleLogin = e => {
 		e.preventDefault();
+		// TODO axios post for token to save to storage
 		console.log('inside submit for login')
+		// TODO reset form
   };
 
   return (
-    <form onSubmit={login} className="form" id="login-form">
+    <form onSubmit={handleLogin} className="form" id="login-form">
 			<p>Please sign in to coninue.</p>
       <h6>Email:</h6>
       <label htmlFor="email">
@@ -43,10 +39,10 @@ export default function LoginForm() {
 					/>
 			</label>
       <h6>Password:</h6>
-      <label>
+      <label htmlFor="password">
         <input
-          value={values.password}
-          onChange={onInputChange}
+          value={credentials.password}
+          onChange={handleChange}
           name="password"
           type="text"
         />
