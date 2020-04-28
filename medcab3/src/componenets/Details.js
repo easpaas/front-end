@@ -2,8 +2,8 @@ import React from 'react'
 
 export default function Details(props) {
     const {
-        imageurl,
-        description,
+        strain_image,
+        strain_description,
         strain_name,
         strain_type,
     } = props
@@ -18,10 +18,10 @@ on this page will be URL generated.*/}
 
     return (
     <div className={'details container'}>
-        <img src={imageurl}/>
+        <img src={strain_image}/>
     <h3>{strain_name} : {strain_type}</h3>
 
-        <p>Details: {description}</p>
+        <p>Details: {strain_description}</p>
 
     </div>
     )

@@ -1,4 +1,10 @@
 import React from 'react'
+import styled from 'styled-components'
+
+const loginFormDiv = styled.div`
+    background-color: #EDFFEA
+    
+`
 
 export default function LoginForm(props) {
     // leaving handlers for state change here

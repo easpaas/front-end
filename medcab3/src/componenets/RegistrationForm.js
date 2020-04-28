@@ -40,13 +40,13 @@ export default function RegistrationForm(props) {
                 />
             </label>
             
-            <label><h6>Username:</h6><input
+            {/* <label><h6>Username:</h6><input
                     value={values.username}
                     onChange={onInputChange}
                     name='username'
                     type='text'
                 />
-            </label>
+            </label> */}
             
             <label><p>"I verify that I am of legal age to view this content in my region."</p>
                 <input
