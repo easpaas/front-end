@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Switch, Route, Link } from 'react-router-dom';
-import Details from './componenets/Details';
-import RegistrationForm from './componenets/RegistrationForm';
-import LoginForm, { LoginFormDiv } from './componenets/LoginForm'
+import Details from './components/Details';
+import RegistrationForm from './components/RegistrationForm';
+import LoginForm, { LoginFormDiv } from './components/LoginForm'
 
 // API url will go here
 const baseUrl = 'https://medcab3-strain.herokuapp.com/'
@@ -69,6 +69,9 @@ function App() {
   
   return (
     <div className="App">
+      
+      {/* TODO Context.Provider */}
+      
       {/* adding a nav bar just for testing */}
       <header>
         <Link to='/Login'><button>Login</button></Link>
