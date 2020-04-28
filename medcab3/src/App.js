@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Switch, Route, Link } from 'react-router-dom';
 import Details from './componenets/Details';
 import RegistrationForm from './componenets/RegistrationForm';
-import LoginForm, { loginFormDiv } from './componenets/LoginForm'
+import LoginForm, { LoginFormDiv } from './componenets/LoginForm'
 
 // API url will go here
 const baseUrl = 'https://medcab3-strain.herokuapp.com/'
@@ -12,10 +12,9 @@ const baseUrl = 'https://medcab3-strain.herokuapp.com/'
 // form values
 const initialFormValues = {
   name:'',
-  username:'',
   email:'',
   password:'',
-  ageCheckbox:false
+  ageCheckbox:{checked:false}
 }
 
 // for now, Im making a lorum ipsum data object for me to render to the DOM, we can tweak it to look like the data we get from the DS Team, and hopefully get them to set up a table of funny, dummy, strains (My favorite idea so far is gysahl greens)
@@ -78,13 +77,13 @@ function App() {
       </header>
       <Switch>
         <Route path='/Login'>
-          <loginFormDiv >
+          <LoginFormDiv >
             <LoginForm
             values={formValues}
             onInputChange={onInputChange}
             onSubmit={onSubmit}          
             />
-          </loginFormDiv>
+          </LoginFormDiv>
         </Route>
         <Route path='/Register'>
           <RegistrationForm 
