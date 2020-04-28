@@ -101,8 +101,9 @@ function App() {
         {/* more specific switch paths above */}        
         <Route path='/'>
           <Details 
-          image={defaultDetails.imageurl}
-          description={defaultDetails.description}
+          // prop names match dataset names
+          strain_image={defaultDetails.strain_image}
+          strain_description={defaultDetails.strain_description}
           strain_name={defaultDetails.strain_name}
           strain_type={defaultDetails.strain_type}          
           />
