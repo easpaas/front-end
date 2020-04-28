@@ -5,12 +5,13 @@ import { axiosWithAuth } from "../utils/axiosAuth";
 // export const LoginFormDiv = styled.div`
 //   background-color: #edffea;
 // `;
+const initialState = {
+	email: "",
+	password: ""
+};
 
 export default function LoginForm() {
-	const [credentials, setCredentials] = useState({
-		email: "",
-		password: ""
-	});
+	const [credentials, setCredentials] = useState(initialState);
 
   const handleChange = e => {
 		setCredentials({
