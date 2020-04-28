@@ -1,21 +1,12 @@
 import React, { useState } from 'react';
 import { Switch, Route, Link } from 'react-router-dom';
-import Details from './components/Details';
+
+// import Details from './componenets/Details';
+import LoginForm from './components/LoginForm';
 import RegistrationForm from './components/RegistrationForm';
-import LoginForm, { LoginFormDiv } from './components/LoginForm'
 
 // API url will go here
 const baseUrl = 'https://medcab3-strain.herokuapp.com/'
-
-
-
-// form values
-const initialFormValues = {
-  name:'',
-  email:'',
-  password:'',
-  ageCheckbox:{checked:false}
-}
 
 // for now, Im making a lorum ipsum data object for me to render to the DOM, we can tweak it to look like the data we get from the DS Team, and hopefully get them to set up a table of funny, dummy, strains (My favorite idea so far is gysahl greens)
 const defaultDetails = {
@@ -37,79 +28,33 @@ function App() {
   REMINDER: ask about testing database functionality with a search bar. required?
 
    const [details, setDetails] = useState(defaultDetails) */
-  const [formValues, setFormValues] = useState(initialFormValues)
-
-  const onInputChange = evt => {
-    const name = evt.target.name
-    const value = evt.target.value
-
-    setFormValues({
-      ...formValues,
-      [name]: value
-    })
-  }
-
-  const onCheckboxChange = evt => {
-    // calling this name in case we use the mail checkbox
-    const {name} = evt.target
-    const isChecked = evt.target.checked
-    setFormValues({
-      ...formValues,
-      [name]: isChecked
-    })
-  }
-
-  const onSubmit = evt => {
-    evt.preventDefault()
-    // TODO: axios POST registration/Login endpoint
-    console.log(evt)
-    setFormValues(initialFormValues)
-  }
-
   
   return (
     <div className="App">
-      
-      {/* TODO Context.Provider */}
-      
+
       {/* adding a nav bar just for testing */}
       <header>
         <Link to='/Login'><button>Login</button></Link>
         <Link to='/Register'><button>Register</button></Link>
         <Link to='/'><button>Home</button></Link>
       </header>
-      <Switch>
+
         <Route path='/Login'>
-          <LoginFormDiv >
-            <LoginForm
-            values={formValues}
-            onInputChange={onInputChange}
-            onSubmit={onSubmit}          
-            />
-          </LoginFormDiv>
+          <LoginForm />
         </Route>
         <Route path='/Register'>
-          <RegistrationForm 
-          values={formValues}
-          onInputChange={onInputChange}
-          onCheckboxChange={onCheckboxChange}
-          onSubmit={onSubmit}
-          />
+          <RegistrationForm />
         </Route>
-        
-        
+
         {/* more specific switch paths above */}        
-        <Route path='/'>
+        {/* <Route path='/'>
           <Details 
           image={defaultDetails.imageurl}
           description={defaultDetails.description}
           strain_name={defaultDetails.strain_name}
           strain_type={defaultDetails.strain_type}          
           />
-        </Route>
-      </Switch>
-      
-      
+        </Route> */}
     </div>
   );
 }
