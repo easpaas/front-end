@@ -61,15 +61,26 @@ function App() {
 
   const onSubmit = evt => {
     evt.preventDefault()
-    // TODO: axios POST registration/Login endpoint
-    console.log(evt)
+    axiosWithAuth()
+    .post('https://medcab3-strain.herokuapp.com/api/auth/login', formValues)
+    .then(res => {
+      console.log(res)
+      // res.data.payload
+      // redux - send the token to the redux store
+      // browser storage - localStorage (this is probably the least secure choice)
+      // cookies
+      // localStorage.setItem('token', JSON.stringify(res.data.payload));
+      props.history.push('/protected');
+    })
+    .catch(err => console.log({ err }));
+    
     setFormValues(initialFormValues)
   }
 
   
   return (
     <div className="App">
-      
+
       {/* TODO Context.Provider */}
       
       {/* adding a nav bar just for testing */}
