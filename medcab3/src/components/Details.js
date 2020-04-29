@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 
 export default function Details(props) {
     const {
@@ -7,6 +7,15 @@ export default function Details(props) {
         strain_name,
         strain_type,
     } = props
+    
+const initialState = {
+    strain_image:'#',
+    strain_name:'Gysahl Greens',
+    strain_type:'Sativa',
+    strain_fragrance_profile:'Smells strongly of wild onion',
+    strain_description:'Fully man, keif gummies are the indoor equivalent of body high super mellow. Make a quick pipe out of an apple and release the carb Purple Haze all around. Crystalized buds from trimming tasty weed pens THC sativa euphoric resinated dome piece. Taco Bell 4th meal with Doritos Locos tacos and a knife rip on the side. Guatemalan purple haze grown outdoors by ganja shaman.',
+    // Mybe more data points for what it treats? 
+  }
 
 
 
