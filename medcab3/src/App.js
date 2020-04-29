@@ -7,6 +7,7 @@ import PrivateRoute from './components/PrivateRoute';
 import Details from './components/Details';
 import LoginForm from './components/LoginForm';
 import RegistrationForm from './components/RegistrationForm';
+import UserProfile from './components/UserProfile';
 
 // API url will go here
 const baseUrl = 'https://medcab3-strain.herokuapp.com/'
@@ -35,34 +36,17 @@ function App() {
   return (
     <div className="App">
       <Router>
+        <div className="header">
+          <Link to='/Login'>Login</Link>
+          <Link to='/Register'>Register</Link>
+        </div>
 
-      {/* adding a nav bar just for testing */}
-      <div className="header">
-        <Link to="/">Home</Link>
-        <Link to='/Login'>Login</Link>
-        <Link to='/Register'>Register</Link>
-      </div>
-
-        {/* <Route exact path='/Register'>
-          <RegistrationForm />
-        </Route> */}
-
-      <Switch>
-        <PrivateRoute exact path="/protected" component={Details} />
-        <Route path="/Register" component={RegistrationForm} />
-        <Route path='/Login' component={LoginForm} />
-        {/* <Route component={LoginForm} /> */}
-      </Switch>
-
-      {/* more specific switch paths above */}        
-      {/* <Route path='/'>
-        <Details 
-        image={defaultDetails.imageurl}
-        description={defaultDetails.description}
-        strain_name={defaultDetails.strain_name}
-        strain_type={defaultDetails.strain_type}          
-        />
-      </Route> */}
+        <Switch>
+          <PrivateRoute exact path="/protected" component={UserProfile} />
+          <Route path="/Register" component={RegistrationForm} />
+          <Route path='/Login' component={LoginForm} />
+          <Route path="/" component={Details} />
+        </Switch>
       </Router>
     </div>
   );

@@ -1,10 +1,7 @@
 import React, {useState} from "react";
 import { axiosWithAuth } from "../utils/axiosAuth";
-// import styled from "styled-components";
+import { useHistory } from 'react-router-dom';
 
-// export const LoginFormDiv = styled.div`
-//   background-color: #edffea;
-// `;
 const initialState = {
 	email: "",
 	password: ""
@@ -12,6 +9,7 @@ const initialState = {
 
 export default function LoginForm() {
 	const [credentials, setCredentials] = useState(initialState);
+	const { push } = useHistory();
 
   const handleChange = e => {
 		setCredentials({
@@ -22,10 +20,20 @@ export default function LoginForm() {
 
   const handleLogin = e => {
 		e.preventDefault();
-		// TODO axios post for token to save to storage
-		console.log('inside submit for login')
-		// TODO reset form
-  };
+		const user = localStorage.getItem('credentials');
+		console.log(user);
+		// axiosWithAuth()
+    //   .post('api/auth/login', credentials)
+    //   .then(res => {
+		// 			console.log(res.data)
+    //    	localStorage.setItem('token', JSON.stringify(res.data.payload));
+    //    	push('/protected');
+    //   })
+		// 	.catch(err => console.log({ err }));
+		setCredentials(initialState);
+
+		push('/protected');
+	};
 
   return (
     <form onSubmit={handleLogin} className="form" id="login-form">

@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {useHistory} from 'react-router-dom';
 import {axiosWithAuth} from '../utils/axiosAuth'
 
 // Declare inital state
@@ -9,8 +10,12 @@ const initalState = {
 	ageCheckbox:{checked:false}
 }
 
+const tempToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkZveCBNdWxkZXIiLCJpYXQiOjE1MTYyMzkwMjJ9.7DF4KshLB0cw9RDG3WHV6B25gE1sZ2zBkvFotCpXQfA";
+
 export default function RegistrationForm() {
-    const [credentials, setCredentials] = useState(initalState)   
+		const [credentials, setCredentials] = useState(initalState);
+		const { push } = useHistory();
+		
     
     const handleChange = e => {
 			setCredentials({
@@ -30,10 +35,19 @@ export default function RegistrationForm() {
 		}
     
 		const handleSubmit = evt => {
-			evt.preventDefault()
-			// TODO: axios POST registration endpoint
-			console.log('inside submit for register form')
+			evt.preventDefault();
+			localStorage.setItem('token', JSON.stringify(tempToken));
+			localStorage.setItem('credentials', JSON.stringify(credentials));
+		// 	axiosWithAuth()
+    //   .post('api/auth/register', credentials)
+    //   .then(res => {
+		// 			console.log(res.data)
+		//    	localStorage.setItem('token', JSON.stringify(res.data.payload));
+		// 			push('/protected');
+    //   })
+		// 	.catch(err => console.log({ err }));
 			setCredentials(initalState);
+			push('/protected');
 		}
 
     return (
