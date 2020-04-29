@@ -40,7 +40,7 @@ export default function LoginForm() {
       },
       [credentials]
     );
-  });
+  }, [credentials]);
 
   const handleChange = e => {
     // pulling e.target.name and e.target.value before yup
