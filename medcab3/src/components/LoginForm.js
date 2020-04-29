@@ -1,52 +1,49 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { axiosWithAuth } from "../utils/axiosAuth";
-import { useHistory } from 'react-router-dom';
+import { useHistory } from "react-router-dom";
 
 const initialState = {
-	email: "",
-	password: ""
+  email: "",
+  password: ""
 };
 
 export default function LoginForm() {
-	const [credentials, setCredentials] = useState(initialState);
-	const { push } = useHistory();
+  const [credentials, setCredentials] = useState(initialState);
+  const { push } = useHistory();
 
   const handleChange = e => {
-		setCredentials({
-			...credentials, 
-			[e.target.name]: e.target.value
-		})
+    setCredentials({
+      ...credentials,
+      [e.target.name]: e.target.value
+    });
   };
 
   const handleLogin = e => {
 		e.preventDefault();
-		const user = localStorage.getItem('credentials');
-		console.log(user);
-		// axiosWithAuth()
-    //   .post('api/auth/login', credentials)
-    //   .then(res => {
-		// 			console.log(res.data)
-    //    	localStorage.setItem('token', JSON.stringify(res.data.payload));
-    //    	push('/protected');
-    //   })
-		// 	.catch(err => console.log({ err }));
+		
+    axiosWithAuth()
+      .post("api/auth/login", credentials)
+      .then(res => {
+        localStorage.setItem("token", JSON.stringify(res.data.token));
+      })
+			.catch(err => console.log({ err }));
+			
 		setCredentials(initialState);
-
-		push('/protected');
-	};
+		push("/protected");
+  };
 
   return (
     <form onSubmit={handleLogin} className="form" id="login-form">
-			<p>Please sign in to coninue.</p>
+      <p>Please sign in to coninue.</p>
       <h6>Email:</h6>
       <label htmlFor="email">
-				<input
-						value={credentials.email}
-						onChange={handleChange}
-						name="email"
-						type="text"
-					/>
-			</label>
+        <input
+          value={credentials.email}
+          onChange={handleChange}
+          name="email"
+          type="text"
+        />
+      </label>
       <h6>Password:</h6>
       <label htmlFor="password">
         <input
@@ -56,7 +53,7 @@ export default function LoginForm() {
           type="text"
         />
       </label>
-			<button type="submit">Log in</button>
-		</form>
+      <button type="submit">Log in</button>
+    </form>
   );
 }

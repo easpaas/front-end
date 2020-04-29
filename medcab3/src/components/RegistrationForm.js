@@ -4,18 +4,15 @@ import {axiosWithAuth} from '../utils/axiosAuth'
 
 // Declare inital state
 const initalState = {
-	name:'',
-	email:'',
-	password:'',
-	ageCheckbox:{checked:false}
+	email: "",
+	name: "",
+	password: ""
 }
-
-const tempToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkZveCBNdWxkZXIiLCJpYXQiOjE1MTYyMzkwMjJ9.7DF4KshLB0cw9RDG3WHV6B25gE1sZ2zBkvFotCpXQfA";
 
 export default function RegistrationForm() {
 		const [credentials, setCredentials] = useState(initalState);
+		const [isChecked, setIsChecked] = useState(false);
 		const { push } = useHistory();
-		
     
     const handleChange = e => {
 			setCredentials({
@@ -25,27 +22,21 @@ export default function RegistrationForm() {
 		}
 
 		const onCheckboxChange = evt => {
-			// calling this name in case we use the mail checkbox
 			const {name} = evt.target
 			const isChecked = evt.target.checked
-			setCredentials({
-				...credentials,
-				[name]: isChecked
-			})
+			setIsChecked(true);
 		}
     
 		const handleSubmit = evt => {
 			evt.preventDefault();
-			localStorage.setItem('token', JSON.stringify(tempToken));
-			localStorage.setItem('credentials', JSON.stringify(credentials));
-		// 	axiosWithAuth()
-    //   .post('api/auth/register', credentials)
-    //   .then(res => {
-		// 			console.log(res.data)
-		//    	localStorage.setItem('token', JSON.stringify(res.data.payload));
-		// 			push('/protected');
-    //   })
-		// 	.catch(err => console.log({ err }));
+			axiosWithAuth()
+      .post('api/auth/register', credentials)
+      .then(res => {
+					console.log(res.data)
+		  	localStorage.setItem('token', JSON.stringify(res.data.payload));
+					// push('/protected');
+      })
+			.catch(err => console.log({ err }));
 			setCredentials(initalState);
 			push('/protected');
 		}
@@ -83,7 +74,7 @@ export default function RegistrationForm() {
 				<p>"I verify that I am of legal age to view this content in my region."</p>
 				<label htmlFor="checkbox">
 					<input
-							checked={credentials.ageCheckbox}
+							checked={isChecked}
 							onChange={onCheckboxChange}
 							name='ageCheckbox'
 							type='checkbox'
