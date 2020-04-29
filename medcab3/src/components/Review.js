@@ -9,32 +9,32 @@ import ReviewCard from './ReviewCard';
 const initalState = [
 	{
 		id: 2,
-		name: 'review off the chain', 
-		rating: 5, 
-		description: 'top shelf pain relief'
+		strain: 'review off the chain', 
+		stars: 5, 
+		review: 'top shelf pain relief'
 	},
 	{
 		id: 100,
-		name: 'headaches galore', 
-		rating: 2, 
-		description: 'a sample of this gave me a vice grip headache'
-	},
+		strain: 'headaches galore', 
+		stars: 2, 
+		review: 'a sample of this gave me a vice grip headache'
+	}
 ]
 
 const Review = () => {
 	const [reviews, setReviews] = useState(initalState);
 	// const { review, setReview } = useContext(ReviewContext);
 	
-	// useEffect(() => {
-	// 	axiosWithAuth()
-	// 	.get({/* TODO api endpoint for users goes here */})
-	// 	.then(response => {
-	// 		console.log(response.data)
-	// 		// TODO if data from server is correct, set the response to state
-	// 		// setReviews(response.data);
-	// 	})
-	// 	.catch(error => {console.log(error)})
-	// }, [])
+	useEffect(() => {
+		axiosWithAuth()
+			.get('/:id/fav-reviews')
+			.then(response => {
+				console.log(response.data)
+				// TODO if data from server is correct, set the response to state
+				// setReviews(response.data);
+			})
+			.catch(error => {console.log(error)})
+	}, [])
 
 	// TODO AddReview
 	// const addReview = review => {
