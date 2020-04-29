@@ -1,10 +1,28 @@
 import React, { useEffect, useState } from "react";
-import { ReviewContext } from "../contexts/ReviewContext";
-import { axiosWithAuth } from "../utils/axiosAuth";
 import '../App.css';
 
+import { ReviewContext } from "../contexts/ReviewContext";
+import { axiosWithAuth } from "../utils/axiosAuth";
+import ReviewCard from './ReviewCard';
+
+
+const initalState = [
+	{
+		id: 2,
+		name: 'review off the chain', 
+		rating: 5, 
+		description: 'top shelf pain relief'
+	},
+	{
+		id: 100,
+		name: 'headaches galore', 
+		rating: 2, 
+		description: 'a sample of this gave me a vice grip headache'
+	},
+]
+
 const Review = () => {
-	const [reviews, setReviews] = useState([]);
+	const [reviews, setReviews] = useState(initalState);
 	// const { review, setReview } = useContext(ReviewContext);
 	
 	// useEffect(() => {
@@ -18,16 +36,35 @@ const Review = () => {
 	// 	.catch(error => {console.log(error)})
 	// }, [])
 
+	// TODO AddReview
+	// const addReview = review => {
+	// 	axiosWithAuth().post({/* api endpoint for adding new review here */})
+	// 		.then(response => {
+	// 			console.log(response)
+	// 		})
+	// 		.catch(error => {
+	// 			console.log(error)
+	// 		})
+	// }
+
+
   return (
-    <div>
-      {/* <img scr={review.strain_image} alt={`${review.strain_name} name`} />
-			<h1>{review.strain_name}</h1>
-			<p>{review.strain_description}</p> */}
-			<h2>My Reviews</h2>
+    <div style={{padding: '2%'}}>
+			<h2 style={{margin: '2% 0', fontVariant: 'small-caps'}}>My Reviews</h2>
+			{
+				reviews.map(card => {
+					// TODO add application provider instead of passing card via props
+					return <ReviewCard key={card.id} card={card} />
+				})
+			}
 			{/* 
 					TODOs 
-					- 
+					- add server endpoint for users
+					- apply state from Review to Application.Provider
+					- add a button that allows user to post a new review
+					- render reviewCard with Application.Provider wrapped around component
 			*/}
+			<button onClick={() => {console.log('Add review button clicked')}}>Add Review</button>
     </div>
   );
 };
