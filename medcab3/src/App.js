@@ -19,25 +19,27 @@ function App() {
    cant think of a way to make a get request apart from having the DS
    team host some dummy data, since the point of the age verification 
    is to not return any details on actual data until age is confirmed. */
+  const [reviews, setReviews] = useState([])
 
   const [details, setDetails] = useState([{
-    strain_name:"",
-    strain_type:"",
-    description:""
+    strain_name: "",
+    strain_type: "",
+    description: ""
   }])
 
   const getDetails = () => {
     axios.get(`${baseUrl}${landingUrl}`)
-    .then(res => {
-      setDetails(res.data)
-    })
-    .catch(err => {
-      console.log(err)
-    })}
-    useEffect(()=> {
+      .then(res => {
+        setDetails(res.data)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+  useEffect(() => {
     getDetails()
-    },[])
-  
+  }, [])
+
   return (
     <div className="App">
       <Router>
@@ -54,12 +56,15 @@ function App() {
           <Route path="/">
             {
               details.map(card => {
-                return(
-                  <DetailsCard key={Math.floor(Math.random()*200)} card={card} />
+                return (
+                  <DetailsCard key={Math.floor(Math.random() * 200)} card={card} />
                 )
-              })            
-            }       
-            </Route>
+              })
+            }
+          </Route>
+          <ReviewContext.Provider value={{ reviews }}>
+
+          </ReviewContext.Provider>
         </Switch>
       </Router>
     </div>
