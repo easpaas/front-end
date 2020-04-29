@@ -1,20 +1,74 @@
-import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
-import { axiosWithAuth } from "../utils/axiosAuth";
+import React, {useState, useEffect} from 'react';
+import {useHistory} from 'react-router-dom';
+import * as yup from 'yup'
+import {axiosWithAuth} from '../utils/axiosAuth'
 
 // Declare inital state
 const initalState = {
-  name: "",
-  email: "",
-  password: "",
-};
+	name:'',
+	email:'',
+	password:'',
+	// ageCheckbox:false
+}
+
+// form errors
+const initialFormErrors = {
+	name:"",
+	email:"",
+	password:"",
+	// ageCheckbox:""
+}
+
+// validation schema
+const formSchema = yup.object().shape({
+	name: yup
+		.string()
+		.required('Name is required.'),
+	email: yup
+		.string()
+		.email('a valid email address is required.')
+		.required('a valid email address is required.'),
+	password: yup
+		.string()
+		.min(2, "Password must be at least 2 characters long.")
+		.max(16, "Password can be no more than 16 characters long.")
+		.required('Password is required.'),
+	// ageCheckbox: yup
+	// 	.boolean()
+	// 	.oneOf([true], 'You must be of age to create an account.')
+})
 
 export default function RegistrationForm() {
 	const [credentials, setCredentials] = useState(initalState);
 	const [ageCheckbox, setAgeCheckbox] = useState({checked: false});
-  const { push } = useHistory();
+	const [formDisabled, setFormDisabled] = useState(true)
+	const [formErrors, setFormErrors] = useState(initialFormErrors)
+	const { push } = useHistory();
+	
+	useEffect(() => {
+		formSchema.isValid(credentials)
+		.then(valid => {
+			setFormDisabled(!valid)
+		},[credentials])
+	})
 
   const handleChange = e => {
+		yup
+		.reach(formSchema, name)
+		.validate(value)
+		.then(valid => {
+			setFormErrors({
+				...formErrors,
+				[name]: "",
+			})
+		})
+		.catch(err => {
+			setFormErrors({
+				...formErrors,
+				[name]: err.errors[0]
+			})
+		})
+
     setCredentials({
       ...credentials,
       [e.target.name]: e.target.value
