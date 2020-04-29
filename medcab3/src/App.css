@@ -24,3 +24,16 @@ a:hover {
 /* Registration Form styles */
 
 /* Login Form styles */
+
+/* User Profile styles */
+.profile {
+ 
+}
+.reviews{
+background-color: grey;
+}
+
+/* Reviews styles */
+.reviews-container {
+  background-color: grey;
+}

@@ -1,15 +1,19 @@
 import React from 'react';
+import '../App.css';
 
-const UserProfile = () =>{
+import Review from './Review';
+
+const UserProfile = () => {
+
+  // TODO 
+
   return (
-    <>
     <div className="profile">
-      UserProfile...under construction
+      <p>UserProfile...under construction</p>
+      <div className="reviews">
+        <Review />
+      </div>
     </div>
-    <div className="reviews">
-
-    </div>
-    </>
   );
 }
 

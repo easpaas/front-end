@@ -51,7 +51,6 @@ function App() {
           <Route path="/Register" component={RegistrationForm} />
           <Route path='/Login' component={LoginForm} />
           <Route path="/">
-
             {
               details.map(card => {
                 return(
