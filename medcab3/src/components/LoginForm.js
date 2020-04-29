@@ -23,7 +23,7 @@ const formSchema = yup.object().shape({
 		.required('a valid email address is required.'),
 	password: yup
 		.string()
-		.min(8, "Password must be at least 8 characters long.")
+		.min(2, "Password must be at least 2 characters long.")
 		.max(16, "Password can be no more than 16 characters long.")
 		.required('Password is required.'),
 })
