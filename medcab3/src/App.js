@@ -17,16 +17,16 @@ function App() {
    team host some dummy data, since the point of the age verification 
    is to not return any details on actual data until age is confirmed. */
 
-  const [details, setDetails] = useState({
+  const [details, setDetails] = useState([{
     strain_name:"",
     strain_type:"",
     description:""
-  })
+  }])
 
   const getDetails = () => {
     axios.get(`${baseUrl}${landingUrl}`)
     .then(res => {
-      setDetails(res.data[0])
+      setDetails(res.data)
     })
     .catch(err => {
       console.log(err)
@@ -44,7 +44,7 @@ function App() {
         <Link to='/Register'><button>Register</button></Link>
         <Link to='/'><button>Home</button></Link>
       </header>
-
+      <Switch>
         <Route path='/Login'>
           <LoginForm />
         </Route>
@@ -54,14 +54,26 @@ function App() {
 
         {/* more specific switch paths above */}        
         <Route path='/'>
-          <Details
+          {
+
+            details.map(detailscard => {
+              return (
+                <Details
           // prop names match dataset names
-          strain_image={details.strain_image}
-          description={details.description}
-          strain_name={details.strain_name}
-          strain_type={details.strain_type}          
+          strain_image={detailscard.strain_image}
+          description={detailscard.description}
+          strain_name={detailscard.strain_name}
+          strain_type={detailscard.strain_type}          
           />
+              )
+            })
+
+          }
+
+
+          
         </Route>
+        </Switch>
     </div>
   );
 }
