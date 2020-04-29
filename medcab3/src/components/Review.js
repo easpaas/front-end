@@ -25,16 +25,16 @@ const Review = () => {
 	const [reviews, setReviews] = useState(initalState);
 	// const { review, setReview } = useContext(ReviewContext);
 	
-	useEffect(() => {
-		axiosWithAuth()
-			.get('/fav-reviews')
-			.then(response => {
-				console.log(response.data)
-				// TODO if data from server is correct, set the response to state
-				// setReviews(response.data);
-			})
-			.catch(error => {console.log(error)})
-	}, [])
+	// useEffect(() => {
+	// 	axiosWithAuth()
+	// 		.get('/fav-reviews')
+	// 		.then(response => {
+	// 			console.log(response.data)
+	// 			// TODO if data from server is correct, set the response to state
+	// 			// setReviews(response.data);
+	// 		})
+	// 		.catch(error => {console.log(error)})
+	// }, [])
 
 	// TODO AddReview
 	// const addReview = review => {
