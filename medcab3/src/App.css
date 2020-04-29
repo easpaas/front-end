@@ -17,7 +17,7 @@
 }
 a:hover {
   background-color: black;
-  color:grey;
+  color: #649D66;
   border: 1px dashed white;
 }
 
@@ -27,12 +27,12 @@ a:hover {
 
 /* User Profile styles */
 .reviews{
-background-color: grey;
+background-color:  #649D66;
 }
 
 /* Reviews styles */
 .reviews-container {
-  background-color: grey;
+  background-color:  #649D66;
 }
 
 /* ReviewCard styles */

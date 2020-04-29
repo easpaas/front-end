@@ -27,7 +27,7 @@ const Review = () => {
 	
 	useEffect(() => {
 		axiosWithAuth()
-			.get('/:id/fav-reviews')
+			.get('/fav-reviews')
 			.then(response => {
 				console.log(response.data)
 				// TODO if data from server is correct, set the response to state

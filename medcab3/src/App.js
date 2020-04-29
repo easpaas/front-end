@@ -42,6 +42,13 @@ function App() {
     <div className="App">
       <Router>
         <div className="header">
+          {/* if the sessions storage has a token, a clear storage button will display */}
+          {
+            localStorage.getItem('token') ?
+              <button onClick={() => {console.log('storage full')}}>Clear Storage</button>
+            :
+              ''
+          }
           <a href='https://thepotcab.netlify.app/'>Marketing</a>
           <Link to='/Login'>Login</Link>
           <Link to='/Register'>Register</Link>
