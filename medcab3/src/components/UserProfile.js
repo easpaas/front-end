@@ -7,7 +7,7 @@ const UserProfile = () =>{
       UserProfile...under construction
     </div>
     <div className="reviews">
-
+      <p>reviews will go here</p>
     </div>
     </>
   );
