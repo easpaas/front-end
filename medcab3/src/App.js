@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
+import axios from 'axios'
 
 
 import PrivateRoute from './components/PrivateRoute';
-import Details from './components/Details';
+import DetailsCard from './components/Details';
 import LoginForm from './components/LoginForm';
 import RegistrationForm from './components/RegistrationForm';
 import UserProfile from './components/UserProfile';
@@ -49,7 +50,16 @@ function App() {
           <PrivateRoute exact path="/protected" component={UserProfile} />
           <Route path="/Register" component={RegistrationForm} />
           <Route path='/Login' component={LoginForm} />
-          <Route path="/" component={Details} />
+          <Route path="/">
+
+            {
+              details.map(card => {
+                return(
+                  <DetailsCard key={Math.floor(Math.random()*200)} card={card} />
+                )
+              })            
+            }       
+            </Route>
         </Switch>
       </Router>
     </div>
