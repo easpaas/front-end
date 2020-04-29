@@ -1,11 +1,25 @@
 import React, {useState} from "react";
 import { axiosWithAuth } from "../utils/axiosAuth";
 import { useHistory } from 'react-router-dom';
+import * as yup from 'yup'
 
 const initialState = {
 	email: "",
 	password: ""
 };
+
+// validation schema
+const formSchema = yup.object().shape({
+	email: yup
+		.string()
+		.email('a valid email address is required.')
+		.required('a valid email address is required.'),
+	password: yup
+		.string()
+		.min(8, "Password must be at least 8 characters long.")
+		.max(16, "Password can be no more than 16 characters long.")
+		.required('Password is required.'),
+})
 
 export default function LoginForm() {
 	const [credentials, setCredentials] = useState(initialState);
