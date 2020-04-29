@@ -1,17 +1,58 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { axiosWithAuth } from "../utils/axiosAuth";
 import { useHistory } from 'react-router-dom';
+import * as yup from 'yup'
 
 const initialState = {
 	email: "",
 	password: ""
 };
 
+// form errors and disabled section
+const initialFormErrors = {
+	email: "",
+	password: ""
+}
+
+
+// validation schema
+const formSchema = yup.object().shape({
+	email: yup
+		.string()
+		.email('a valid email address is required.')
+		.required('a valid email address is required.'),
+	password: yup
+		.string()
+		.min(8, "Password must be at least 8 characters long.")
+		.max(16, "Password can be no more than 16 characters long.")
+		.required('Password is required.'),
+})
+
 export default function LoginForm() {
 	const [credentials, setCredentials] = useState(initialState);
 	const { push } = useHistory();
-
+	const [formDisabled, setFormDisabled] = useState(true)
+	const [formErrors, setFormErrors] = useState(initialFormErrors)
   const handleChange = e => {
+	  // pulling e.target.name and e.target.value before yup
+	  const name = e.target.name
+	  const value = e.target.value
+
+	  yup
+		  .reach(formSchema, name)
+		  .validate(value)
+		  .then(valid => {
+			  setFormErrors({
+				  ...formErrors,
+				  [name]: "",
+			  })
+		  })
+		  .catch(err => {
+			  setFormErrors({
+				  ...formErrors,
+				  [name]: err.errors[0]
+			  })
+		  })
 		setCredentials({
 			...credentials, 
 			[e.target.name]: e.target.value
@@ -33,7 +74,15 @@ export default function LoginForm() {
 		setCredentials(initialState);
 
 		push('/protected');
-	};
+	}
+	useEffect(() => {
+		formSchema.isValid(credentials)
+		.then(valid => {
+			setFormDisabled(!valid)
+		},[credentials])
+	})
+	
+	;
 
   return (
     <form onSubmit={handleLogin} className="form" id="login-form">
@@ -56,7 +105,7 @@ export default function LoginForm() {
           type="text"
         />
       </label>
-			<button type="submit">Log in</button>
+			<button type="submit" disabled={formDisabled}>Log in</button>
 		</form>
   );
 }
