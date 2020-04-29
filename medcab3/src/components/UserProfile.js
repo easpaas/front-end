@@ -2,8 +2,11 @@ import React from 'react';
 
 const UserProfile = () =>{
   return (
-    <div>
+    <div clas>
       UserProfile...under construction
+    </div>
+    <div className="reviews">
+
     </div>
   );
 }

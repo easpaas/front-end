@@ -1,9 +1,9 @@
 import React, {useState} from 'react'
 
-export default function Details(props) {
+export default function DetailsCard(props) {
     const {
         strain_image,
-        strain_description,
+        description,
         strain_name,
         strain_type,
     } = props
@@ -30,7 +30,7 @@ on this page will be URL generated.*/}
         <img src={strain_image}/>
     <h3>{strain_name} : {strain_type}</h3>
 
-        <p>Details: {strain_description}</p>
+        <p>Details: {description}</p>
 
     </div>
     )
