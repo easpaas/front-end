@@ -33,10 +33,8 @@ export default function RegistrationForm() {
 			evt.preventDefault()
 			// TODO: axios POST registration endpoint
 			console.log('inside submit for register form')
-			// TODO reset form values
 			setCredentials(initalState);
 		}
-    
 
     return (
 			<form onSubmit={handleSubmit} className="form" id="register-form">

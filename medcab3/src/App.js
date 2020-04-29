@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
-import { Switch, Route, Link } from 'react-router-dom';
+import './App.css';
+import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
 
-// import Details from './componenets/Details';
+
+import PrivateRoute from './components/PrivateRoute';
+import Details from './components/Details';
 import LoginForm from './components/LoginForm';
 import RegistrationForm from './components/RegistrationForm';
 
@@ -31,30 +34,36 @@ function App() {
   
   return (
     <div className="App">
+      <Router>
 
       {/* adding a nav bar just for testing */}
-      <header>
-        <Link to='/Login'><button>Login</button></Link>
-        <Link to='/Register'><button>Register</button></Link>
-        <Link to='/'><button>Home</button></Link>
-      </header>
+      <div className="header">
+        <Link to="/">Home</Link>
+        <Link to='/Login'>Login</Link>
+        <Link to='/Register'>Register</Link>
+      </div>
 
-        <Route path='/Login'>
-          <LoginForm />
-        </Route>
-        <Route path='/Register'>
+        {/* <Route exact path='/Register'>
           <RegistrationForm />
-        </Route>
-
-        {/* more specific switch paths above */}        
-        {/* <Route path='/'>
-          <Details 
-          image={defaultDetails.imageurl}
-          description={defaultDetails.description}
-          strain_name={defaultDetails.strain_name}
-          strain_type={defaultDetails.strain_type}          
-          />
         </Route> */}
+
+      <Switch>
+        <PrivateRoute exact path="/protected" component={Details} />
+        <Route path="/Register" component={RegistrationForm} />
+        <Route path='/Login' component={LoginForm} />
+        {/* <Route component={LoginForm} /> */}
+      </Switch>
+
+      {/* more specific switch paths above */}        
+      {/* <Route path='/'>
+        <Details 
+        image={defaultDetails.imageurl}
+        description={defaultDetails.description}
+        strain_name={defaultDetails.strain_name}
+        strain_type={defaultDetails.strain_type}          
+        />
+      </Route> */}
+      </Router>
     </div>
   );
 }
