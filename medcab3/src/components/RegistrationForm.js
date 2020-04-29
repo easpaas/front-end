@@ -53,9 +53,11 @@ export default function RegistrationForm() {
 	})
 
   const handleChange = e => {
+    const { name } = e.target;
+
 		yup
 		.reach(formSchema, name)
-		.validate(value)
+		.validate(e.target.value)
 		.then(valid => {
 			setFormErrors({
 				...formErrors,
