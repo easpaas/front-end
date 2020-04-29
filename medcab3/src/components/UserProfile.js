@@ -2,12 +2,14 @@ import React from 'react';
 
 const UserProfile = () =>{
   return (
-    <div clas>
+    <>
+    <div className="profile">
       UserProfile...under construction
     </div>
     <div className="reviews">
 
     </div>
+    </>
   );
 }
 
