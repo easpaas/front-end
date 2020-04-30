@@ -10,19 +10,23 @@ const UserProfile = () => {
   const [userId, setUserId] = useState(params.id);
   const [strains, setStrains] = useState([]);
 
-  // useEffect(() => {
-  //   axiosWithAuth()
-  //     .get('api/users/strains')
-  //     .then(response => {console.log(response)})
-  //     .catch(error => {console.log(error)})
-  // }, [])
+  useEffect(() => {
+    axiosWithAuth()
+      .get('api/users/strains')
+      .then(response => setStrains(response.data))
+      .catch(error => {console.log(error)})
+  }, [])
 
   return (
     <div className="profile">
-      <p>UserProfile...under construction</p>
       <div className="strains">
+        <h2>Current Strains</h2>
         {
-          console.log(strains)
+          strains.map(strain => {
+            return (
+              <p key={strain.id}>{strain.strain_name}</p>
+            )
+          })
         }
       </div>
       <div className="reviews">

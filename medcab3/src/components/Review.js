@@ -38,12 +38,10 @@ const Review = ({userId}) => {
 		axiosWithAuth()
 			.get(`api/users/${userId}/fav-reviews`)
 			.then(response => {
-				console.log(response.data)
-				// TODO if data from server is correct, set the response to state
-				// setReviews(response.data);
+				setReviews(response.data);
 			})
 			.catch(error => {console.log(error)})
-	}, [reviews])
+	}, [])
 
 	const handleChange = e => {
 		setReview({
@@ -56,14 +54,11 @@ const Review = ({userId}) => {
 		e.preventDefault();
 		setReview(reviewData);
 		setAddingReview(false);
-		axiosWithAuth().post(`https://medcab3-strain.herokuapp.com/api/users/${userId}/fav-reviews
-		`, review)
-			.then(response => {
-				console.log(response)
-			})
-			.catch(error => {
-				console.log(error)
-			})
+
+		axiosWithAuth()
+			.post(`https://medcab3-strain.herokuapp.com/api/users/${userId}/fav-reviews`, review)
+			.then(response => {console.log(response)})
+			.catch(error => {console.log(error)})
 	}
 
 

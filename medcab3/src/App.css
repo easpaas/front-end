@@ -29,6 +29,17 @@ a:hover {
 .reviews{
 background-color:  #649D66;
 }
+.strains {
+  border: 4px solid;
+  background-color: #649D66;
+  margin: 5%;
+  padding: 2%;
+}
+.strains h2 {
+  margin: 0;
+  font-variant: small-caps;
+  font-weight: bolder;
+}
 
 /* Reviews styles */
 .reviews-container {
