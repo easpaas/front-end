@@ -26,8 +26,14 @@ function App() {
       description: ""
     }
   ]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userId, setUserId] = useState('');
   
+  useEffect(() => {
+    localStorage.getItem('token') &&
+    setIsLoggedIn(true)
+  }, [isLoggedIn])
+
   useEffect(() => {
     localStorage.getItem('id') &&
     setUserId(localStorage.getItem('id'));
@@ -54,7 +60,7 @@ function App() {
       <Router>
         <div className="header">
           {/* if the sessions storage has a token, a clear storage button will display */}
-          {localStorage.getItem("token") && (
+          {/* {localStorage.getItem("token") && (
             <button
               onClick={() => {
                 localStorage.clear();
@@ -62,11 +68,16 @@ function App() {
             >
               Clear Storage
             </button>
-          )}
+          )} */}
           <a href="https://thepotcab.netlify.app/">Marketing</a>
           <Link to={`/protected/${userId}`}>Home</Link>
-          <Link to="/Login">Login</Link>
-          <Link to="/Register">Register</Link>
+          {
+            isLoggedIn ? 
+              <button onClick={() => localStorage.clear()}>Logout</button> :
+                <Link to="/Login">Login</Link>
+                // <Link to="/Register">Register</Link>
+          }
+          
         </div>
 
         <Switch>
