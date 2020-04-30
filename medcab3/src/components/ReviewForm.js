@@ -28,7 +28,8 @@ const ReviewForm = ({userId}) => {
     // Push request to server
     axiosWithAuth()
     .put(`api/users/${userId}/fav-reviews/${id}`, formData)
-    .then(() => {
+    .then((response) => {
+      console.log(response);
       setFormData(emptyData);
       push(`/protected/${userId}`)
     })
