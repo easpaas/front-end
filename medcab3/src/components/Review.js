@@ -49,20 +49,21 @@ const Review = ({userId}) => {
 		setReview({
 			...review,
 			[e.target.name]: e.target.value
-		})
+		});
 	}
+
 	const handleAddSubmit = e => {
 		e.preventDefault();
-		console.log(review)
 		setReview(reviewData);
 		setAddingReview(false);
-		// axiosWithAuth().post({/* api endpoint for adding new review here */})
-		// 	.then(response => {
-		// 		console.log(response)
-		// 	})
-		// 	.catch(error => {
-		// 		console.log(error)
-		// 	})
+		axiosWithAuth().post(`https://medcab3-strain.herokuapp.com/api/users/${userId}/fav-reviews
+		`, review)
+			.then(response => {
+				console.log(response)
+			})
+			.catch(error => {
+				console.log(error)
+			})
 	}
 
 
