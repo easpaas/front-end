@@ -5,21 +5,6 @@ import  {ReviewContext}  from "../contexts/ReviewContext";
 import { axiosWithAuth } from "../utils/axiosAuth";
 import ReviewCard from "./ReviewCard";
 
-const reviewsData = [
-  {
-    id: 2,
-    strain: "review off the chain",
-    stars: 5,
-    review: "top shelf pain relief"
-  },
-  {
-    id: 100,
-    strain: "headaches galore",
-    stars: 2,
-    review: "a sample of this gave me a vice grip headache"
-  }
-];
-
 const reviewData = {
   strain: "",
   stars: 0,
@@ -27,7 +12,7 @@ const reviewData = {
 };
 
 const Reviews = () => {
-  const [reviews, setReviews] = useState(reviewsData);
+  const [reviews, setReviews] = useState([]);
   const [addingReview, setAddingReview] = useState(false);
 	const [review, setReview] = useState(reviewData);
 	
@@ -116,9 +101,13 @@ const Reviews = () => {
         </div>
       )}
       <div className="reviews">
-        {reviews.map(card => {
-          return <ReviewCard key={card.id} card={card} />;
-        })}
+        {
+          reviews.length === 0 ? 
+            <p style={{color: 'red'}}>You have not added any reviews.</p> :
+          reviews.map(card => {
+            return <ReviewCard key={card.id} card={card} />;
+          })
+        }
       </div>
     </div>
   );
