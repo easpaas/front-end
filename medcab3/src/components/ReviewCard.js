@@ -1,12 +1,20 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {useHistory} from 'react-router-dom';
 import '../App.css';
+
+import {ReviewContext} from '../contexts/ReviewContext';
 import { axiosWithAuth } from '../utils/axiosAuth';
 import ReviewForm from './ReviewForm';
 
 
-const ReviewCard = ({card, userId}) => {
+const ReviewCard = ({card}) => {
   const { push } = useHistory();
+  const {userId} = useContext(ReviewContext);
+
+  const handleEdit = e => {
+    e.preventDefault();
+    push(`/update-review/${card.id}`);
+  }
 
   const handleDelete = e => {
     e.preventDefault();
@@ -23,9 +31,7 @@ const ReviewCard = ({card, userId}) => {
         <h4>Rating: {card.stars} out of 5 stars{/* TODO add favicon of Star here if time permits */}</h4>
         <h4>Review: {card.review}</h4>
       </div>
-      <button onClick={() => {
-          push(`/update-review/${userId}`);
-        }}>Edit</button>
+      <button onClick={handleEdit}>Edit</button>
       <button onClick={handleDelete}>Delete</button>
     </div>
   );

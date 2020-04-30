@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import "../App.css";
 
-import { ReviewContext } from "../contexts/ReviewContext";
+import  {ReviewContext}  from "../contexts/ReviewContext";
 import { axiosWithAuth } from "../utils/axiosAuth";
 import ReviewCard from "./ReviewCard";
 
@@ -22,14 +22,17 @@ const reviewsData = [
 
 const reviewData = {
   strain: "",
-  stars: 1,
+  stars: 0,
   review: ""
 };
 
-const Reviews = ({ userId }) => {
+const Reviews = () => {
   const [reviews, setReviews] = useState(reviewsData);
   const [addingReview, setAddingReview] = useState(false);
-  const [review, setReview] = useState(reviewData);
+	const [review, setReview] = useState(reviewData);
+	
+	const {userId} = useContext(ReviewContext);
+	
 
   useEffect(() => {
     axiosWithAuth()
@@ -114,7 +117,7 @@ const Reviews = ({ userId }) => {
       )}
       <div className="reviews">
         {reviews.map(card => {
-          return <ReviewCard userId={userId} key={card.id} card={card} />;
+          return <ReviewCard key={card.id} card={card} />;
         })}
       </div>
     </div>

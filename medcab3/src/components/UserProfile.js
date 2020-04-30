@@ -4,6 +4,7 @@ import '../App.css';
 
 import Review from './Reviews';
 import { axiosWithAuth } from '../utils/axiosAuth';
+import {ReviewContext} from '../contexts/ReviewContext';
 
 const UserProfile = () => {
   const params = useParams();
@@ -30,7 +31,9 @@ const UserProfile = () => {
         }
       </div>
       <div className="reviews">
-        <Review userId={userId} />
+        <ReviewContext.Provider value={{userId}}>
+          <Review />
+        </ReviewContext.Provider>
       </div>
     </div>
   );
