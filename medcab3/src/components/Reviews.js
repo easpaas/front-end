@@ -27,13 +27,11 @@ const reviewData= {
 	review: '',
 };
 
-const Review = ({userId}) => {
+const Reviews = ({userId}) => {
 	const [reviews, setReviews] = useState(reviewsData);
 	const [addingReview, setAddingReview] = useState(false);
 	const [review, setReview] = useState(reviewData);
 
-	// const { review, setReview } = useContext(ReviewContext);
-	
 	useEffect(() => {
 		axiosWithAuth()
 			.get(`api/users/${userId}/fav-reviews`)
@@ -41,7 +39,7 @@ const Review = ({userId}) => {
 				setReviews(response.data);
 			})
 			.catch(error => {console.log(error)})
-	}, [])
+	}, [reviews])
 
 	const handleChange = e => {
 		setReview({
@@ -61,14 +59,13 @@ const Review = ({userId}) => {
 			.catch(error => {console.log(error)})
 	}
 
-
   return (
     <div style={{padding: '2%'}}>
 			<h2 style={{margin: '2% 0', fontVariant: 'small-caps'}}>My Reviews</h2>
 			<div className="reviews">
 				{
 					reviews.map(card => {
-						return <ReviewCard key={card.id} card={card} />
+						return <ReviewCard userId={userId} key={card.id} card={card} />
 					})
 				}
 			</div>
@@ -112,4 +109,4 @@ const Review = ({userId}) => {
   );
 };
 
-export default Review;
+export default Reviews;

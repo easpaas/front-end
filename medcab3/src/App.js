@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import './App.css';
-import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
-import axios from 'axios'
+import React, { useState, useEffect } from "react";
+import "./App.css";
+import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+import axios from "axios";
 
-
-import PrivateRoute from './components/PrivateRoute';
-import DetailsCard from './components/Details';
-import LoginForm from './components/LoginForm';
-import RegistrationForm from './components/RegistrationForm';
-import UserProfile from './components/UserProfile';
+import PrivateRoute from "./components/PrivateRoute";
+import DetailsCard from "./components/Details";
+import LoginForm from "./components/LoginForm";
+import RegistrationForm from "./components/RegistrationForm";
+import UserProfile from "./components/UserProfile";
+import ReviewForm from "./components/ReviewForm";
 
 // API url will go here
-const baseUrl = 'https://medcab3-strain.herokuapp.com/'
-const landingUrl = 'api/auth/landing'
+const baseUrl = "https://medcab3-strain.herokuapp.com/";
+const landingUrl = "api/auth/landing";
 
 function App() {
   /* slice of state that can be used for search bar maybe
@@ -20,53 +20,66 @@ function App() {
    team host some dummy data, since the point of the age verification 
    is to not return any details on actual data until age is confirmed. */
 
-  const [details, setDetails] = useState([{
-    strain_name:"",
-    strain_type:"",
-    description:""
-  }])
+  const [details, setDetails] = useState([
+    {
+      strain_name: "",
+      strain_type: "",
+      description: ""
+    }
+  ]);
 
   const getDetails = () => {
-    axios.get(`${baseUrl}${landingUrl}`)
-    .then(res => {
-      setDetails(res.data)
-    })
-    .catch(err => {
-      console.log(err)
-    })}
-    useEffect(()=> {
-    getDetails()
-    },[])
-  
+    axios
+      .get(`${baseUrl}${landingUrl}`)
+      .then(res => {
+        setDetails(res.data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+  useEffect(() => {
+    getDetails();
+  }, []);
+
   return (
     <div className="App">
       <Router>
         <div className="header">
           {/* if the sessions storage has a token, a clear storage button will display */}
-          {
-            localStorage.getItem('token') ?
-              <button onClick={() => {localStorage.removeItem('token')}}>Clear Storage</button>
-            :
-              ''
-          }
-          <a href='https://thepotcab.netlify.app/'>Marketing</a>
-          <Link to='/Login'>Login</Link>
-          <Link to='/Register'>Register</Link>
+          {localStorage.getItem("token") ? (
+            <button
+              onClick={() => {
+                localStorage.removeItem("token");
+              }}
+            >
+              Clear Storage
+            </button>
+          ) : (
+            ""
+          )}
+          <a href="https://thepotcab.netlify.app/">Marketing</a>
+          <Link to="/Login">Login</Link>
+          <Link to="/Register">Register</Link>
         </div>
 
         <Switch>
           <PrivateRoute exact path="/protected/:id" component={UserProfile} />
           <Route path="/Register" component={RegistrationForm} />
-          <Route path='/Login' component={LoginForm} />
+          <Route path="/Login" component={LoginForm} />
           <Route path="/">
-            {
-              details.map(card => {
-                return(
-                  <DetailsCard key={Math.floor(Math.random()*200)} card={card} />
-                )
-              })            
-            }       
-            </Route>
+            {details.map(card => {
+              return (
+                <DetailsCard
+                  key={Math.floor(Math.random() * 200)}
+                  card={card}
+                />
+              );
+            })}
+          </Route>
+          <Route path="/update-review/:id">
+            <ReviewForm />
+          </Route>
         </Switch>
       </Router>
     </div>
