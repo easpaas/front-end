@@ -9,6 +9,7 @@ import LoginForm from "./components/LoginForm";
 import RegistrationForm from "./components/RegistrationForm";
 import UserProfile from "./components/UserProfile";
 import ReviewForm from "./components/ReviewForm";
+import { ReviewContext } from "./contexts/ReviewContext";
 
 // API url will go here
 const baseUrl = "https://medcab3-strain.herokuapp.com/";
@@ -19,7 +20,6 @@ function App() {
    cant think of a way to make a get request apart from having the DS
    team host some dummy data, since the point of the age verification 
    is to not return any details on actual data until age is confirmed. */
-
   const [details, setDetails] = useState([
     {
       strain_name: "",
@@ -27,6 +27,14 @@ function App() {
       description: ""
     }
   ]);
+  const [userId, setUserId] = useState('');
+  
+  useEffect(() => {
+    localStorage.getItem('id') &&
+    setUserId(localStorage.getItem('id'));
+    console.log(userId);
+  }, [userId]);
+
 
   const getDetails = () => {
     axios
@@ -47,25 +55,28 @@ function App() {
       <Router>
         <div className="header">
           {/* if the sessions storage has a token, a clear storage button will display */}
-          {localStorage.getItem("token") ? (
+          {localStorage.getItem("token") && (
             <button
               onClick={() => {
-                localStorage.removeItem("token");
+                localStorage.clear();
               }}
             >
               Clear Storage
             </button>
-          ) : (
-            ""
           )}
           <a href="https://thepotcab.netlify.app/">Marketing</a>
+          <Link to={`/protected/${userId}`}>Home</Link>
           <Link to="/Login">Login</Link>
           <Link to="/Register">Register</Link>
         </div>
 
         <Switch>
           <PrivateRoute exact path="/protected/:id" component={UserProfile} />
-          <Route path="/update-review/:id" component={ReviewForm} />
+          {/* <ReviewContext.Provider value={{userId}}> */}
+            <Route path="/update-review/:id"> 
+              <ReviewForm userId={userId} />
+            </Route>
+          {/* </ReviewContext.Provider> */}
           <Route path="/Register" component={RegistrationForm} />
           <Route path="/Login" component={LoginForm} />
           <Route path="/">

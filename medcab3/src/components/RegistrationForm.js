@@ -94,6 +94,7 @@ export default function RegistrationForm() {
       .then(res => {
         console.log(res.data)
         localStorage.setItem("token", JSON.stringify(res.data.token));
+        localStorage.setItem("id", JSON.stringify(res.data.id));
 				setCredentials(initalState);
 				push(`/protected/${res.data.id}`);
       })

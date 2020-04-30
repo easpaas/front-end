@@ -11,7 +11,7 @@ const emptyData = {
   review: '',
 };
 
-const ReviewForm = () => {
+const ReviewForm = ({userId}) => {
   const [formData, setFormData] = useState(emptyData);
   const { id } = useParams();
   const { push } = useHistory();
@@ -30,18 +30,16 @@ const ReviewForm = () => {
     e.preventDefault();
     console.log(formData)
     setFormData(emptyData);
-    // push(`/protected/${userId}`)
     // Push request to server
-    // axiosWithAuth()
-    // .put(`api/users/${userId}/fav-reviews/${id}`, formData)
-    // .then(response => {
-    //   console.log(response.data)
-    //   // props.getMovieList();
-    //   // push(`/`);
-    // })
-    // .catch(error => {
-    //   console.log(error)
-    // })
+    axiosWithAuth()
+    .put(`api/users/${userId}/fav-reviews/${id}`, formData)
+    .then(response => {
+      console.log(response.data)
+      push(`/protected/${userId}`)
+    })
+    .catch(error => {
+      console.log(error)
+    })
   };
 
   return(
