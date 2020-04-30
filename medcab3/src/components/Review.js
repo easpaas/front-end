@@ -6,7 +6,7 @@ import { axiosWithAuth } from "../utils/axiosAuth";
 import ReviewCard from './ReviewCard';
 
 
-const initalState = [
+const reviewsData = [
 	{
 		id: 2,
 		strain: 'review off the chain', 
@@ -19,52 +19,99 @@ const initalState = [
 		stars: 2, 
 		review: 'a sample of this gave me a vice grip headache'
 	}
-]
+];
 
-const Review = () => {
-	const [reviews, setReviews] = useState(initalState);
+const reviewData= {
+	strain: '', 
+	stars: 1,
+	review: '',
+};
+
+const Review = ({userId}) => {
+	const [reviews, setReviews] = useState(reviewsData);
+	const [addingReview, setAddingReview] = useState(false);
+	const [review, setReview] = useState(reviewData);
+
 	// const { review, setReview } = useContext(ReviewContext);
 	
-	// useEffect(() => {
-	// 	axiosWithAuth()
-	// 		.get('/fav-reviews')
-	// 		.then(response => {
-	// 			console.log(response.data)
-	// 			// TODO if data from server is correct, set the response to state
-	// 			// setReviews(response.data);
-	// 		})
-	// 		.catch(error => {console.log(error)})
-	// }, [])
+	useEffect(() => {
+		axiosWithAuth()
+			.get(`api/users/${userId}/fav-reviews`)
+			.then(response => {
+				console.log(response.data)
+				// TODO if data from server is correct, set the response to state
+				// setReviews(response.data);
+			})
+			.catch(error => {console.log(error)})
+	}, [reviews])
 
-	// TODO AddReview
-	// const addReview = review => {
-	// 	axiosWithAuth().post({/* api endpoint for adding new review here */})
-	// 		.then(response => {
-	// 			console.log(response)
-	// 		})
-	// 		.catch(error => {
-	// 			console.log(error)
-	// 		})
-	// }
+	const handleChange = e => {
+		setReview({
+			...review,
+			[e.target.name]: e.target.value
+		})
+	}
+	const handleAddSubmit = e => {
+		e.preventDefault();
+		console.log(review)
+		setReview(reviewData);
+		setAddingReview(false);
+		// axiosWithAuth().post({/* api endpoint for adding new review here */})
+		// 	.then(response => {
+		// 		console.log(response)
+		// 	})
+		// 	.catch(error => {
+		// 		console.log(error)
+		// 	})
+	}
 
 
   return (
     <div style={{padding: '2%'}}>
 			<h2 style={{margin: '2% 0', fontVariant: 'small-caps'}}>My Reviews</h2>
-			{
-				reviews.map(card => {
-					// TODO add application provider instead of passing card via props
-					return <ReviewCard key={card.id} card={card} />
-				})
-			}
-			{/* 
-					TODOs 
-					- add server endpoint for users
-					- apply state from Review to Application.Provider
-					- add a button that allows user to post a new review
-					- render reviewCard with Application.Provider wrapped around component
-			*/}
-			<button onClick={() => {console.log('Add review button clicked')}}>Add Review</button>
+			<div className="reviews">
+				{
+					reviews.map(card => {
+						return <ReviewCard key={card.id} card={card} />
+					})
+				}
+			</div>
+			<button onClick={() => setAddingReview(true)}>Add Review</button>
+					{
+						addingReview &&
+						<div style={{border: '4px solid', display: 'flex', padding: '1.5%', flexDirection: 'column'}}>
+							<form onSubmit={handleAddSubmit}>
+								<label htmlFor="strain">
+									Strain: 
+									<input 
+										type="text"
+										name="strain"
+										onChange={handleChange}
+										placeholder="strain" 
+									/>
+								</label>
+								<label htmlFor="stars">
+									Stars: 
+									<input 
+										type="number"
+										name="stars"
+										onChange={handleChange}
+										placeholder="stars" 
+									/>
+								</label>
+								<label htmlFor="review">
+									Review: 
+									<input 
+										type="text"
+										name="review"
+										onChange={handleChange}
+										placeholder="review" 
+									/>
+								</label>
+								<button type="submit">Submit</button>
+							</form> 
+						</div>
+					}
     </div>
   );
 };

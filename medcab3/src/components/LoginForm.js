@@ -73,9 +73,9 @@ export default function LoginForm() {
       .post("api/auth/login", credentials)
       .then(res => {
         console.log(res.data);
-				localStorage.setItem("token", JSON.stringify(res.data.payload));
+				localStorage.setItem("token", JSON.stringify(res.data.token));
 				setCredentials(initialState);
-        push("/protected");
+        push(`/protected/${res.data.user.id}`);
       })
       .catch(err => console.log({ err }));
   };

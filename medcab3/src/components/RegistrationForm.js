@@ -92,10 +92,10 @@ export default function RegistrationForm() {
     axiosWithAuth()
       .post("api/auth/register", credentials)
       .then(res => {
-        console.log(res.data);
-				localStorage.setItem("token", JSON.stringify(res.data.payload));
+        console.log(res.data)
+        localStorage.setItem("token", JSON.stringify(res.data.token));
 				setCredentials(initalState);
-				push("/protected");
+				push(`/protected/${res.data.id}`);
       })
       .catch(err => console.log({ err }));
   };

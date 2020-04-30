@@ -55,7 +55,7 @@ function App() {
         </div>
 
         <Switch>
-          <PrivateRoute exact path="/protected" component={UserProfile} />
+          <PrivateRoute exact path="/protected/:id" component={UserProfile} />
           <Route path="/Register" component={RegistrationForm} />
           <Route path='/Login' component={LoginForm} />
           <Route path="/">
