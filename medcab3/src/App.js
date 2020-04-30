@@ -29,14 +29,24 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userId, setUserId] = useState('');
   
-  
+  const getDetails = () => {
+    axios
+      .get(`${baseUrl}${landingUrl}`)
+      .then(res => {
+        setDetails(res.data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
   useEffect(() => {
     getDetails();
     localStorage.getItem('token') &&
       setIsLoggedIn(true);
     localStorage.getItem('id') &&
       setUserId(localStorage.getItem('id'));
-  }, [isLoggedIn, userId, details]);
+  }, [isLoggedIn, userId]);
 
   // useEffect(() => {
   //   localStorage.getItem('token') &&
@@ -49,16 +59,7 @@ function App() {
   //   console.log(userId);
   // }, [userId]);
 
-  const getDetails = () => {
-    axios
-      .get(`${baseUrl}${landingUrl}`)
-      .then(res => {
-        setDetails(res.data);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  };
+
   
   return (
     <div className="App">
