@@ -29,17 +29,25 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userId, setUserId] = useState('');
   
+  
   useEffect(() => {
+    getDetails();
     localStorage.getItem('token') &&
-    setIsLoggedIn(true)
-  }, [isLoggedIn])
-
-  useEffect(() => {
+      setIsLoggedIn(true);
     localStorage.getItem('id') &&
-    setUserId(localStorage.getItem('id'));
-    console.log(userId);
-  }, [userId]);
+      setUserId(localStorage.getItem('id'));
+  }, [isLoggedIn, userId, details]);
 
+  // useEffect(() => {
+  //   localStorage.getItem('token') &&
+  //   setIsLoggedIn(true)
+  // }, [isLoggedIn])
+
+  // useEffect(() => {
+  //   localStorage.getItem('id') &&
+  //   setUserId(localStorage.getItem('id'));
+  //   console.log(userId);
+  // }, [userId]);
 
   const getDetails = () => {
     axios
@@ -51,34 +59,32 @@ function App() {
         console.log(err);
       });
   };
-  useEffect(() => {
-    getDetails();
-  }, []);
-
+  
   return (
     <div className="App">
       <Router>
         <div className="header">
-          {/* if the sessions storage has a token, a clear storage button will display */}
-          {/* {localStorage.getItem("token") && (
-            <button
-              onClick={() => {
-                localStorage.clear();
-              }}
-            >
-              Clear Storage
-            </button>
-          )} */}
           <a href="https://thepotcab.netlify.app/">Marketing</a>
-          <Link to={`/protected/${userId}`}>Home</Link>
+          
+          {/* Displays Register */}
+          {
+            !isLoggedIn &&
+            <Link to="/Register">Register</Link>
+          }
+
+          {/* Displays 'Home' link */}
+          {
+            isLoggedIn &&
+              <Link to={`/protected/${userId}`}>Home</Link>
+          }
+
+          {/* Displays login or logout links */}
           {
             isLoggedIn ? 
-              <button onClick={() => localStorage.clear()}>Logout</button> :
+              <button className="button" onClick={() => localStorage.clear()}>Logout</button> :
                 <Link to="/Login">Login</Link>
-                // <Link to="/Register">Register</Link>
           }
-          
-        </div>
+        </div> 
 
         <Switch>
           <PrivateRoute exact path="/protected/:id" component={UserProfile} />

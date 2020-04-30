@@ -8,7 +8,7 @@ import {ReviewContext} from '../contexts/ReviewContext';
 
 const UserProfile = () => {
   const params = useParams();
-  const [userId, setUserId] = useState(params.id);
+  const [userId] = useState(params.id);
   const [strains, setStrains] = useState([]);
 
   useEffect(() => {

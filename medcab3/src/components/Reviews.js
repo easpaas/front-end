@@ -28,7 +28,7 @@ const Reviews = () => {
       .catch(error => {
         console.log(error);
       });
-  }, [reviews]);
+  }, [reviews, userId]);
 
   const handleChange = e => {
     setReview({

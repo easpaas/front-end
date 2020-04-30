@@ -75,7 +75,7 @@ export default function LoginForm() {
         console.log(res.data);
         localStorage.setItem("token", JSON.stringify(res.data.token));
         localStorage.setItem('id', JSON.stringify(res.data.user.id));
-				setCredentials(initialState);
+        setCredentials(initialState);
         push(`/protected/${res.data.user.id}`);
       })
       .catch(err => console.log({ err }));
@@ -103,7 +103,7 @@ export default function LoginForm() {
         />
       </label>
       <button type="submit" disabled={formDisabled}>
-        Log in
+        Login
       </button>
     </form>
   );
