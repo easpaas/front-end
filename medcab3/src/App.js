@@ -9,7 +9,6 @@ import LoginForm from "./components/LoginForm";
 import RegistrationForm from "./components/RegistrationForm";
 import UserProfile from "./components/UserProfile";
 import ReviewForm from "./components/ReviewForm";
-import { ReviewContext } from "./contexts/ReviewContext";
 
 // API url will go here
 const baseUrl = "https://medcab3-strain.herokuapp.com/";

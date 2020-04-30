@@ -1,9 +1,8 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React, {useState} from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import '../App.css';
 
 import { axiosWithAuth } from '../utils/axiosAuth';
-import {ReviewContext} from '../contexts/ReviewContext';
 
 const emptyData = {
   strain: '', 
@@ -16,8 +15,6 @@ const ReviewForm = ({userId}) => {
   const { id } = useParams();
   const { push } = useHistory();
 
-  // const {userId} = useContext(ReviewContext);
-
   const changeHandler = e => {
     e.persist();
     setFormData({
@@ -28,18 +25,14 @@ const ReviewForm = ({userId}) => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    console.log(formData)
-    setFormData(emptyData);
     // Push request to server
     axiosWithAuth()
     .put(`api/users/${userId}/fav-reviews/${id}`, formData)
-    .then(response => {
-      console.log(response.data)
+    .then(() => {
+      setFormData(emptyData);
       push(`/protected/${userId}`)
     })
-    .catch(error => {
-      console.log(error)
-    })
+    .catch(error => {console.log(error)})
   };
 
   return(
