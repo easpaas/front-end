@@ -65,6 +65,7 @@ function App() {
 
         <Switch>
           <PrivateRoute exact path="/protected/:id" component={UserProfile} />
+          <Route path="/update-review/:id" component={ReviewForm} />
           <Route path="/Register" component={RegistrationForm} />
           <Route path="/Login" component={LoginForm} />
           <Route path="/">
@@ -76,9 +77,6 @@ function App() {
                 />
               );
             })}
-          </Route>
-          <Route path="/update-review/:id">
-            <ReviewForm />
           </Route>
         </Switch>
       </Router>
