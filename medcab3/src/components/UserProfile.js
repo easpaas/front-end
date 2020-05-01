@@ -4,7 +4,7 @@ import '../App.css';
 
 import Review from './Reviews';
 import { axiosWithAuth } from '../utils/axiosAuth';
-import {ReviewContext} from '../contexts/ReviewContext';
+import {ReviewContext} from '../contexts/review';
 
 const UserProfile = () => {
   const params = useParams();

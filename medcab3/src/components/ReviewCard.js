@@ -2,7 +2,7 @@ import React, {useContext} from 'react';
 import {useHistory} from 'react-router-dom';
 import '../App.css';
 
-import {ReviewContext} from '../contexts/ReviewContext';
+import {ReviewContext} from '../contexts/review';
 import { axiosWithAuth } from '../utils/axiosAuth';
 
 
