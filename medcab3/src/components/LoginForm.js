@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { axiosWithAuth } from "../utils/axiosAuth";
 import { useHistory } from "react-router-dom";
 import * as yup from "yup";
+
+import {LoginContext} from '../contexts/login';
 
 const initialState = {
   email: "",
@@ -32,6 +34,7 @@ export default function LoginForm() {
   const { push } = useHistory();
   const [formDisabled, setFormDisabled] = useState(true);
   const [formErrors, setFormErrors] = useState(initialFormErrors);
+  const { setIsLoggedIn } = useContext(LoginContext);
 
   useEffect(() => {
     formSchema.isValid(credentials).then(
@@ -75,7 +78,8 @@ export default function LoginForm() {
         console.log(res.data);
         localStorage.setItem("token", JSON.stringify(res.data.token));
         localStorage.setItem('id', JSON.stringify(res.data.user.id));
-				setCredentials(initialState);
+        setCredentials(initialState);
+        setIsLoggedIn(true);
         push(`/protected/${res.data.user.id}`);
       })
       .catch(err => console.log({ err }));
@@ -103,7 +107,7 @@ export default function LoginForm() {
         />
       </label>
       <button type="submit" disabled={formDisabled}>
-        Log in
+        Login
       </button>
     </form>
   );

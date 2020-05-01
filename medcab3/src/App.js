@@ -9,6 +9,10 @@ import LoginForm from "./components/LoginForm";
 import RegistrationForm from "./components/RegistrationForm";
 import UserProfile from "./components/UserProfile";
 import ReviewForm from "./components/ReviewForm";
+import {LogoutHeader} from "./components/LogoutHeader";
+import { ReviewContext } from "./contexts/review";
+import { LoginContext } from "./contexts/login";
+
 
 // API url will go here
 const baseUrl = "https://medcab3-strain.herokuapp.com/";
@@ -26,15 +30,9 @@ function App() {
       description: ""
     }
   ]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userId, setUserId] = useState('');
   
-  useEffect(() => {
-    localStorage.getItem('id') &&
-    setUserId(localStorage.getItem('id'));
-    console.log(userId);
-  }, [userId]);
-
-
   const getDetails = () => {
     axios
       .get(`${baseUrl}${landingUrl}`)
@@ -45,29 +43,36 @@ function App() {
         console.log(err);
       });
   };
+
+  const loginStatus = () => {
+    localStorage.getItem('token') &&
+    setIsLoggedIn(true);
+  }
+
   useEffect(() => {
     getDetails();
-  }, []);
-
+    loginStatus();
+    localStorage.getItem('id') &&
+      setUserId(localStorage.getItem('id'));
+  }, [isLoggedIn, userId]);
+  
   return (
     <div className="App">
       <Router>
-        <div className="header">
-          {/* if the sessions storage has a token, a clear storage button will display */}
-          {localStorage.getItem("token") && (
-            <button
-              onClick={() => {
-                localStorage.clear();
-              }}
-            >
-              Clear Storage
-            </button>
-          )}
-          <a href="https://thepotcab.netlify.app/">Marketing</a>
-          <Link to={`/protected/${userId}`}>Home</Link>
-          <Link to="/Login">Login</Link>
-          <Link to="/Register">Register</Link>
-        </div>
+        {/* Login status will determine which header to render */}
+        {
+          !isLoggedIn ? 
+            <div className="header">
+              <a href="https://thepotcab.netlify.app/">Marketing</a>
+              <Link to="/Register">Register</Link>
+              <Link to="/Login">Login</Link>
+            </div> 
+          :
+            <LogoutHeader 
+              userId={userId}
+              setIsLoggedIn={setIsLoggedIn}
+            />
+        }
 
         <Switch>
           <PrivateRoute exact path="/protected/:id" component={UserProfile} />
@@ -77,7 +82,9 @@ function App() {
             </Route>
           {/* </ReviewContext.Provider> */}
           <Route path="/Register" component={RegistrationForm} />
-          <Route path="/Login" component={LoginForm} />
+          <LoginContext.Provider value={{setIsLoggedIn}}>
+            <Route path="/Login" component={LoginForm} />
+          </LoginContext.Provider>
           <Route path="/">
             {details.map(card => {
               return (

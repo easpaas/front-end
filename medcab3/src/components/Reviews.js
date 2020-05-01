@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import "../App.css";
 
-import  {ReviewContext}  from "../contexts/ReviewContext";
+import  {ReviewContext}  from "../contexts/review";
 import { axiosWithAuth } from "../utils/axiosAuth";
 import ReviewCard from "./ReviewCard";
 
@@ -28,7 +28,7 @@ const Reviews = () => {
       .catch(error => {
         console.log(error);
       });
-  }, [reviews]);
+  }, [userId]);
 
   const handleChange = e => {
     setReview({
