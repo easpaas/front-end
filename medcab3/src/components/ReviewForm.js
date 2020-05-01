@@ -1,19 +1,30 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import '../App.css';
 
 import { axiosWithAuth } from '../utils/axiosAuth';
 
 const emptyData = {
-  strain: '', 
+  strain: '',
   stars: 0,
   review: '',
 };
 
-const ReviewForm = ({userId}) => {
+const ReviewForm = ({ userId }) => {
   const [formData, setFormData] = useState(emptyData);
   const { id } = useParams();
   const { push } = useHistory();
+
+  //useEffect(() => {
+  //TODO fetch the review of the user by ID
+  // axiosWithAuth()
+  // .get(``)
+  // .then(response => {
+  //   console.log('seeing the response', response.data)
+  //setFormData(response.data)
+  // })
+  // .catch(error => { console.log(error) })
+  //}, [])
 
   const changeHandler = e => {
     e.persist();
@@ -27,16 +38,16 @@ const ReviewForm = ({userId}) => {
     e.preventDefault();
     // Push request to server
     axiosWithAuth()
-    .put(`api/users/${userId}/fav-reviews/${id}`, formData)
-    .then((response) => {
-      console.log(response);
-      setFormData(emptyData);
-      push(`/protected/${userId}`)
-    })
-    .catch(error => {console.log(error)})
+      .put(`api/users/${userId}/fav-reviews/${id}`, formData)
+      .then((response) => {
+        console.log(response);
+        setFormData(emptyData);
+        push(`/protected/${userId}`)
+      })
+      .catch(error => { console.log(error) })
   };
 
-  return(
+  return (
     <div className="review-form">
       <form className="card update-form" onSubmit={handleSubmit}>
         <h3>Edit Review</h3>
