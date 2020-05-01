@@ -3,13 +3,13 @@ import {Link, useHistory} from 'react-router-dom';
 import '../App.css';
 
 export const LogoutHeader = ({userId, setIsLoggedIn}) => {
-  const {push} = useHistory();
+  const { push } = useHistory();
 
 
   const handleLogout = () => {
     localStorage.clear();
     setIsLoggedIn(false);
-    push('/');
+    push("/login");
   }  
 
   return (
