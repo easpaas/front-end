@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useContext } from "react";
 import "../App.css";
+import { useParams } from 'react-router-dom';
 
-import  {ReviewContext}  from "../contexts/ReviewContext";
+import { ReviewContext } from "../contexts/ReviewContext";
 import { axiosWithAuth } from "../utils/axiosAuth";
 import ReviewCard from "./ReviewCard";
 
@@ -29,10 +30,11 @@ const reviewData = {
 const Reviews = () => {
   const [reviews, setReviews] = useState(reviewsData);
   const [addingReview, setAddingReview] = useState(false);
-	const [review, setReview] = useState(reviewData);
-	
-	const {userId} = useContext(ReviewContext);
-	
+  const [review, setReview] = useState(reviewData);
+  const { id } = useParams();
+
+  const { userId } = useContext(ReviewContext);
+
 
   useEffect(() => {
     axiosWithAuth()
