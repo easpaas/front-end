@@ -63,6 +63,7 @@ function App() {
         {
           !isLoggedIn ? 
             <div className="header">
+              <img src="/assets/logo.png" alt="Medicine Cabinet Logo" />
               <a href="https://thepotcab.netlify.app/">Marketing</a>
               <Link to="/Register">Register</Link>
               <Link to="/Login">Login</Link>
