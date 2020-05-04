@@ -13,6 +13,8 @@
   padding: 0.5%;
   text-decoration: none;
   color: black;
+  font-variant: small-caps;
+  font-size: 1.5rem;
 }
 a:hover {
   background-color: black;
@@ -20,8 +22,8 @@ a:hover {
   border: 1px dashed white;
 }
 .button {
-  font-size: 16px;
-  font-family: '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-size: 1.5rem;
+  font-variant: small-caps;
   background: none!important;
   border: none;
   padding: 0!important;
@@ -32,15 +34,16 @@ a:hover {
   text-decoration: none;
 }
 .title-container {
-    color: white;
     display: flex;
     flex-direction: column;
     background-image: url('./assets/main-image.jpg');
-    opacity: 0.5;
+    opacity: 0.6;
     background-repeat: no-repeat;
     background-size: cover;
     padding: 15rem;
     margin: 0 auto;
+}
+.title-content {
 }
 
 

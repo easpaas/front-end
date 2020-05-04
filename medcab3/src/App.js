@@ -76,8 +76,10 @@ function App() {
         }
 
         <div className="title-container">
-          <h3>Making the transition from pharmaceuticals to cannabis painless.</h3>
-          <h1>Welcome to Medicine Cabinet!</h1>
+          <div className="title-content">
+            <h3>Making the transition from pharmaceuticals to cannabis painless.</h3>
+            <h1>Welcome to Medicine Cabinet!</h1>
+          </div>
         </div>
 
         <Switch>
