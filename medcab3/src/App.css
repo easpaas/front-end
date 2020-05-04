@@ -32,6 +32,18 @@ a:hover {
   cursor: pointer;
   text-decoration: none;
 }
+.title-container {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    background-image: url('./assets/main-image.jpg');
+    opacity: 0.5;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 15rem;
+    width: 100%;
+    margin: 0 auto;
+}
 
 
 /* User Profile styles */
